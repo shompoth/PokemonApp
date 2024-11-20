@@ -4,7 +4,7 @@ const Pokemon = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
-        <Text>Detail pokemon</Text>
+        <Text className="text-3xl text-gray-700">Detail pokemon</Text>
       </View>
     </SafeAreaView>
   );
