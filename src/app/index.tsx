@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { View, TextInput, FlatList, ActivityIndicator } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import PokemonCard from "../components/PokemonCard";
-import { useFetchQuery, useInfiniteFetchQuery } from "../hooks/useFetchQuery";
+import { View, FlatList, ActivityIndicator } from "react-native";
+import { PokemonCard } from "../components/PokemonCard";
+import { SearchBar } from "../components/SearchBar";
+import { useInfiniteFetchQuery } from "../hooks/useFetchQuery";
 import { getPokemonId } from "../functions/pokemon";
-import SearchBar from "../components/SearchBar";
+import { RootView } from "../components/RootView";
 
 export default function Index() {
   const [search, setSearch] = useState("");
@@ -29,7 +28,7 @@ export default function Index() {
     : pokemons;
 
   return (
-    <SafeAreaView className="flex-1 pb-8">
+    <RootView>
       <View className="p-4">
         <SearchBar searchText={search} onChange={setSearch} />
         <FlatList
@@ -43,6 +42,6 @@ export default function Index() {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-    </SafeAreaView>
+    </RootView>
   );
 }
