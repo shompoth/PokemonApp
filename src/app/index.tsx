@@ -10,7 +10,7 @@ export default function Index() {
   const [search, setSearch] = useState("");
 
   const { data, isFetching, fetchNextPage } =
-    useInfiniteFetchQuery("/pokemon?limit=21");
+    useInfiniteFetchQuery("/pokemon?limit=20");
 
   const pokemons =
     data?.pages.flatMap((page) =>

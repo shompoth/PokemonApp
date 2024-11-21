@@ -1,6 +1,7 @@
 import { Link } from "expo-router";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { getPokemonArtwork, getPokemonIdDisplay } from "../functions/pokemon";
+import { CustomText } from "./CustomText";
 
 type Props = {
   name: string;
@@ -20,9 +21,12 @@ export const PokemonCard = ({ name, id }: Props) => {
       {/* <Pressable style={{ flex: 1 / 2 }} className="m-2"> */}
       <TouchableOpacity className="w-[46%] m-2">
         <View className="bg-white p-4 rounded-lg shadow relative aspect-square justify-center">
-          <Text className="absolute top-2 right-2 font-bold text-xs text-gray-500">
+          <CustomText
+            variant="small"
+            className="absolute top-2 right-2 font-bold  text-gray-500"
+          >
             {getPokemonIdDisplay(id.toString())}
-          </Text>
+          </CustomText>
           <Image
             source={{
               uri: getPokemonArtwork(id),
@@ -30,9 +34,9 @@ export const PokemonCard = ({ name, id }: Props) => {
             className="w-4/5 h-4/5 mx-auto"
             resizeMode="contain"
           />
-          <Text className="text-center font-medium mt-2 capitalize">
+          <CustomText className="text-center font-medium mt-2 capitalize">
             {name}
-          </Text>
+          </CustomText>
         </View>
       </TouchableOpacity>
     </Link>

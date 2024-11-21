@@ -1,6 +1,7 @@
-import { Text, ViewProps } from "react-native";
+import { ViewProps } from "react-native";
 import { View } from "react-native";
 import { statShortName } from "../functions/pokemon";
+import { CustomText } from "./CustomText";
 
 type Props = ViewProps & {
   name: string;
@@ -14,12 +15,12 @@ export const PokemonStat = ({ name, value }: Props) => {
   return (
     <View className="flex-row items-center">
       <View className="items-center w-16 py-1 border-r-2 border-r-gray-300">
-        <Text>{statShortName(name)}</Text>
+        <CustomText>{statShortName(name)}</CustomText>
       </View>
       <View className="w-16 py-1 items-center">
-        <Text>{value.toString().padStart(3, "0")}</Text>
+        <CustomText>{value.toString().padStart(3, "0")}</CustomText>
       </View>
-      <View className="flex-1 rounded h-2 overflow-hidden flex-row ml-auto">
+      <View className="flex-1 rounded h-2 overflow-hidden flex-row">
         <View style={{ flex: value }} className="bg-orange-500"></View>
         <View
           style={{ flex: max - value }}

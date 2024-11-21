@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import { CustomText } from "./CustomText";
 
 type Props = {
   title?: string;
@@ -24,9 +25,9 @@ export const PokemonSpec = ({
         {icon && (
           <Ionicons name={icon} size={24} color="black" className="mx-2" />
         )}
-        <Text>{title}</Text>
+        <CustomText>{title}</CustomText>
       </View>
-      <Text className="mt-2">{description}</Text>
+      <CustomText className="mt-2">{description}</CustomText>
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { RootView } from "../../components/RootView";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,6 +12,7 @@ import { useFetchQuery } from "../../hooks/useFetchQuery";
 import { PokemonType } from "../../components/PokemonType";
 import { PokemonSpec } from "../../components/PokemonSpec";
 import { PokemonStat } from "../../components/PokemonStat";
+import { CustomText } from "../../components/CustomText";
 
 const Pokemon = () => {
   const router = useRouter();
@@ -35,24 +36,33 @@ const Pokemon = () => {
     .replace(/\f/g, " ");
 
   return (
-    <RootView style={{ backgroundColor: "orange" }}>
+    // <RootView style={{ backgroundColor: "orange" }}>
+    <RootView style={{}}>
       <View style={{ position: "relative" }} className="px-4">
         <Image
           source={require("../../../assets/pokeball_big.png")}
-          className="w-[50%] h-[50%] absolute right-8 top-8 bg-black"
+          // className="w-[50%] h-auto absolute right-8 top-8 bg-black"
+          className="w-[50%] h-auto absolute right-8 top-8"
           resizeMode="contain"
         />
         <View>
-          <View className="flex-row items-center p-4 py-8">
-            <TouchableOpacity onPress={() => router.back()} className="pr-4">
+          <View className="flex-row items-center p-4 py-4">
+            <TouchableOpacity
+              onPress={() => router.back()}
+              className="pr-4"
+              hitSlop={20}
+            >
               <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
-            <Text className="text-2xl font-bold flex-1 capitalize">
+            <CustomText
+              variant="xlarge"
+              className="text-2xl font-bold flex-1 capitalize"
+            >
               {pokemon?.name}
-            </Text>
-            <Text className="text-gray-500 font-bold">
+            </CustomText>
+            <CustomText className="text-gray-500 font-bold">
               {getPokemonIdDisplay(params.id)}
-            </Text>
+            </CustomText>
           </View>
           <Image
             source={{
@@ -66,7 +76,7 @@ const Pokemon = () => {
               <PokemonType key={type.type.name} name={type.type.name} />
             ))}
           </View>
-          <Text className="mx-auto my-2">About</Text>
+          <CustomText className="mx-auto my-2">About</CustomText>
           <View className="flex-row">
             <PokemonSpec
               title={formatWeight(pokemon?.weight)}
@@ -87,8 +97,10 @@ const Pokemon = () => {
               isLast
             />
           </View>
-          <Text className="text-center my-4 font-medium">{bio}</Text>
-          <Text className="mx-auto my-4">Base Stats</Text>
+          <CustomText className="text-center my-4 font-medium">
+            {bio}
+          </CustomText>
+          <CustomText className="mx-auto my-4">Base Stats</CustomText>
           <View>
             {pokemon?.stats.map((stat) => (
               <PokemonStat

@@ -1,4 +1,5 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { CustomText } from "./CustomText";
 
 type Props = {
   name: string;
@@ -7,7 +8,7 @@ type Props = {
 export const PokemonType = ({ name }: Props) => {
   return (
     <View className="p-2 rounded-xl bg-white my-2 mx-2">
-      <Text className="text-gray-500 capitalize">{name}</Text>
+      <CustomText className="text-gray-500 capitalize">{name}</CustomText>
     </View>
   );
 };
