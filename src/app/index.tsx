@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { View, TextInput, FlatList } from "react-native";
+import { View, TextInput, FlatList, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import PokemonCard from "../components/pokemon/PokemonCard";
+import PokemonCard from "../components/PokemonCard";
+import { useFetchQuery, useInfiniteFetchQuery } from "../hooks/useFetchQuery";
+import { getPokemonId } from "../functions/pokemon";
 
 export default function Index() {
   const [searchText, setSearchText] = useState("");
 
-  const data = Array.from({ length: 35 }, (v, k) => ({
-    id: k + 1,
-    name: `Pokemon ${k}`,
-  }));
-
-  const filteredData = data.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // const { data, isFetching } = useFetchQuery("/pokemon?limit=21");
+  const { data, isFetching, fetchNextPage } =
+    useInfiniteFetchQuery("/pokemon?limit=21");
+  // const pokemons = data?.results ?? [];
+  const pokemons = data?.pages.flatMap((page) => page.results) ?? [];
 
   return (
     <SafeAreaView className="flex-1 pb-8">
@@ -31,13 +30,14 @@ export default function Index() {
           />
         </View>
         <FlatList
-          data={filteredData}
+          data={pokemons}
           numColumns={2}
-          className="gap-2"
           renderItem={({ item }) => (
-            <PokemonCard name={item.name} id={item.id} />
+            <PokemonCard name={item.name} id={getPokemonId(item.url)} />
           )}
-          keyExtractor={(item) => item.id.toString()}
+          ListFooterComponent={isFetching ? <ActivityIndicator /> : null}
+          onEndReached={() => fetchNextPage()}
+          keyExtractor={(item) => item.url}
         />
       </View>
     </SafeAreaView>
