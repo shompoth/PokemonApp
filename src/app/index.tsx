@@ -5,38 +5,35 @@ import { Ionicons } from "@expo/vector-icons";
 import PokemonCard from "../components/PokemonCard";
 import { useFetchQuery, useInfiniteFetchQuery } from "../hooks/useFetchQuery";
 import { getPokemonId } from "../functions/pokemon";
+import SearchBar from "../components/SearchBar";
 
 export default function Index() {
-  const [searchText, setSearchText] = useState("");
+  const [search, setSearch] = useState("");
 
-  // const { data, isFetching } = useFetchQuery("/pokemon?limit=21");
   const { data, isFetching, fetchNextPage } =
     useInfiniteFetchQuery("/pokemon?limit=21");
-  // const pokemons = data?.results ?? [];
+
   const pokemons = data?.pages.flatMap((page) => page.results) ?? [];
+  const filteredPokemons = search
+    ? pokemons.filter(
+        (p) =>
+          p.name.toLowerCase().includes(search.toLowerCase()) ||
+          getPokemonId(p.url).toString() === search
+      )
+    : pokemons;
 
   return (
     <SafeAreaView className="flex-1 pb-8">
       <View className="p-4">
-        <View className="flex-row items-center justify-center bg-white rounded-lg shadow mb-4">
-          <View className="px-2">
-            <Ionicons name="search" size={24} color="#71717a" />
-          </View>
-          <TextInput
-            className="flex-1 p-2"
-            value={searchText}
-            onChangeText={setSearchText}
-            placeholder="Rechercher un Pokémon..."
-          />
-        </View>
+        <SearchBar searchText={search} onChange={setSearch} />
         <FlatList
-          data={pokemons}
+          data={filteredPokemons}
           numColumns={2}
           renderItem={({ item }) => (
             <PokemonCard name={item.name} id={getPokemonId(item.url)} />
           )}
           ListFooterComponent={isFetching ? <ActivityIndicator /> : null}
-          onEndReached={() => fetchNextPage()}
+          onEndReached={search ? null : () => fetchNextPage()}
           keyExtractor={(item) => item.url}
         />
       </View>

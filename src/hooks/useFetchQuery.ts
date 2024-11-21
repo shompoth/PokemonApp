@@ -7,7 +7,11 @@ export const useFetchQuery = (path: string) => {
     queryKey: [path],
     queryFn: async () => {
       await wait(1);
-      return fetch(endpoint + path).then((r) => r.json());
+      return fetch(endpoint + path, {
+        headers: {
+          Accept: "application/json",
+        },
+      }).then((r) => r.json());
     },
   });
 };
