@@ -13,12 +13,18 @@ export default function Index() {
   const { data, isFetching, fetchNextPage } =
     useInfiniteFetchQuery("/pokemon?limit=21");
 
-  const pokemons = data?.pages.flatMap((page) => page.results) ?? [];
+  const pokemons =
+    data?.pages.flatMap((page) =>
+      page.results.map((r: { name: string; url: string }) => ({
+        name: r.name,
+        id: getPokemonId(r.url),
+      }))
+    ) ?? [];
   const filteredPokemons = search
     ? pokemons.filter(
         (p) =>
           p.name.toLowerCase().includes(search.toLowerCase()) ||
-          getPokemonId(p.url).toString() === search
+          p.id.toString() === search
       )
     : pokemons;
 
@@ -30,11 +36,11 @@ export default function Index() {
           data={filteredPokemons}
           numColumns={2}
           renderItem={({ item }) => (
-            <PokemonCard name={item.name} id={getPokemonId(item.url)} />
+            <PokemonCard name={item.name} id={item.id} />
           )}
           ListFooterComponent={isFetching ? <ActivityIndicator /> : null}
           onEndReached={search ? null : () => fetchNextPage()}
-          keyExtractor={(item) => item.url}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </SafeAreaView>
