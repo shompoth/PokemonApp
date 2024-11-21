@@ -2,12 +2,21 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const endpoint = "https://pokeapi.co/api/v2";
 
-export const useFetchQuery = (path: string) => {
+export const useFetchQuery = (
+  path: string,
+  params?: Record<string, string | number>
+) => {
+  const localUrl =
+    endpoint +
+    Object.entries(params ?? {}).reduce(
+      (acc, [key, value]) => acc.replaceAll(`[${key}]`, String(value)),
+      path
+    );
+
   return useQuery({
-    queryKey: [path],
-    queryFn: async () => {
-      await wait(1);
-      return fetch(endpoint + path, {
+    queryKey: [localUrl],
+    queryFn: () => {
+      return fetch(localUrl, {
         headers: {
           Accept: "application/json",
         },
@@ -20,8 +29,7 @@ export const useInfiniteFetchQuery = (path: string) => {
   return useInfiniteQuery({
     queryKey: [path],
     initialPageParam: endpoint + path,
-    queryFn: async ({ pageParam }) => {
-      await wait(1);
+    queryFn: ({ pageParam }) => {
       return fetch(pageParam, {
         headers: {
           Accept: "application/json",
@@ -36,7 +44,3 @@ export const useInfiniteFetchQuery = (path: string) => {
     },
   });
 };
-
-function wait(duration: number) {
-  return new Promise((resolve) => setTimeout(resolve, duration * 1000));
-}
