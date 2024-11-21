@@ -1,25 +1,27 @@
 import { Link } from "expo-router";
 import { View, Image, Pressable, Text } from "react-native";
+import { getPokemonIdDisplay } from "../functions/pokemon";
 
 type Props = {
   name: string;
   id: number;
 };
 
-const PokemonCard = ({ name, id }: Props) => {
+export const PokemonCard = ({ name, id }: Props) => {
   return (
     <Link
       href={{
         pathname: "/pokemon/[id]",
-        params: { id: name },
+        params: { id },
       }}
       asChild
     >
+      {/* Keep flex ? for web ? */}
       {/* <Pressable style={{ flex: 1 / 2 }} className="m-2"> */}
       <Pressable className="w-[46%] m-2">
         <View className="bg-white p-4 rounded-lg shadow relative aspect-square justify-center">
           <Text className="absolute top-2 right-2 font-bold text-xs text-gray-500">
-            #{String(id).padStart(4, "0")}
+            {getPokemonIdDisplay(id.toString())}
           </Text>
           <Image
             source={{
@@ -34,5 +36,3 @@ const PokemonCard = ({ name, id }: Props) => {
     </Link>
   );
 };
-
-export default PokemonCard;

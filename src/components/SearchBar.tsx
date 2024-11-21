@@ -6,7 +6,7 @@ type Props = {
   onChange: (s: string) => void;
 };
 
-const SearchBar = ({ searchText, onChange }: Props) => {
+export const SearchBar = ({ searchText, onChange }: Props) => {
   return (
     <View className="flex-row items-center justify-center bg-white rounded-lg shadow mb-4">
       <View className="px-2">
@@ -21,5 +21,3 @@ const SearchBar = ({ searchText, onChange }: Props) => {
     </View>
   );
 };
-
-export default SearchBar;
