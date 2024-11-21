@@ -30,7 +30,9 @@ export const PokemonCard = ({ name, id }: Props) => {
             className="w-4/5 h-4/5 mx-auto"
             resizeMode="contain"
           />
-          <Text className="text-center font-medium mt-2">{name}</Text>
+          <Text className="text-center font-medium mt-2 capitalize">
+            {name}
+          </Text>
         </View>
       </TouchableOpacity>
     </Link>

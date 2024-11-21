@@ -23,3 +23,13 @@ export const formatSize = (size?: number): string => {
   }
   return (size / 10).toString().replace(".", ",") + " m";
 };
+
+export const statShortName = (name: string): string => {
+  return name
+    .replaceAll("special", "S")
+    .replaceAll("-", "")
+    .replaceAll("attack", "ATK")
+    .replaceAll("defense", "DEF")
+    .replaceAll("speed", "SPD")
+    .toUpperCase();
+};
