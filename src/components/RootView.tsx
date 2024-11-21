@@ -1,8 +1,6 @@
-import { SafeAreaView } from "react-native";
-type Props = {
-  children: React.ReactNode;
-};
+import { SafeAreaView, ViewProps } from "react-native";
+type Props = ViewProps;
 
-export const RootView = ({ children }: Props) => {
-  return <SafeAreaView className="flex-1 pb-8">{children}</SafeAreaView>;
+export const RootView = ({ style, ...rest }: Props) => {
+  return <SafeAreaView style={style} className="flex-1 pb-8" {...rest} />;
 };
