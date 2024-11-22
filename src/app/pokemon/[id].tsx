@@ -1,4 +1,9 @@
-import { Image, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { RootView } from "../../components/RootView";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +23,9 @@ const Pokemon = () => {
   const router = useRouter();
   const params = useLocalSearchParams() as { id: string };
 
+  const { height } = useWindowDimensions();
+  const isSmallDevice = height <= 720;
+
   const { data: pokemon } = useFetchQuery("/pokemon/[id]", { id: params.id });
   const { data: species } = useFetchQuery("/pokemon-species/[id]", {
     id: params.id,
@@ -33,11 +41,6 @@ const Pokemon = () => {
   return (
     <RootView style={{}}>
       <View style={{ position: "relative" }} className="px-4">
-        <Image
-          source={require("../../../assets/pokeball_big.png")}
-          className="w-[50%] h-auto absolute right-8 top-8"
-          resizeMode="contain"
-        />
         <View>
           <View className="flex-row items-center p-4 py-4">
             <TouchableOpacity
@@ -61,7 +64,9 @@ const Pokemon = () => {
             source={{
               uri: getPokemonArtwork(params.id),
             }}
-            className="w-1/2 aspect-square mx-auto"
+            className={`aspect-square mx-auto ${
+              isSmallDevice ? "w-1/3" : "w-1/2"
+            }`}
             resizeMode="contain"
           />
           <View className="flex-row justify-center">
