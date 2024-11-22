@@ -20,6 +20,7 @@ import { PokemonType } from "../../components/PokemonType";
 import { PokemonSpec } from "../../components/PokemonSpec";
 import { PokemonStat } from "../../components/PokemonStat";
 import { CustomText } from "../../components/CustomText";
+import { basePokemonStats } from "../../constants/pokemon";
 
 const Pokemon = () => {
   const router = useRouter();
@@ -44,6 +45,8 @@ const Pokemon = () => {
     width: "100%",
     marginHorizontal: width > 768 ? "auto" : undefined,
   };
+
+  const stats = pokemon?.stats ?? basePokemonStats;
 
   return (
     <RootView style={{}}>
@@ -127,12 +130,18 @@ const Pokemon = () => {
                   isLast
                 />
               </View>
-              <CustomText
-                variant="medium"
-                className="text-center my-8 font-medium"
-              >
-                {bio}
-              </CustomText>
+              <View>
+                {bio ? (
+                  <CustomText
+                    variant="medium"
+                    className="text-center my-8 font-medium"
+                  >
+                    {bio}
+                  </CustomText>
+                ) : (
+                  <View className="h-10 my-8 bg-black" /> // hauteur approximative basée sur la taille de police medium
+                )}
+              </View>
             </View>
 
             <View className={`${width > 1024 ? "w-1/3 px-8" : "w-full"}`}>
@@ -143,7 +152,7 @@ const Pokemon = () => {
               >
                 Base Stats
               </CustomText>
-              {pokemon?.stats.map((stat) => (
+              {stats.map((stat) => (
                 <PokemonStat
                   key={stat.stat.name}
                   name={stat.stat.name}

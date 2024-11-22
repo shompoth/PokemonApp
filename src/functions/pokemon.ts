@@ -12,14 +12,14 @@ export const getPokemonArtwork = (id: number | string): string => {
 
 export const formatWeight = (weight?: number): string => {
   if (!weight) {
-    return "";
+    return "--";
   }
   return (weight / 10).toString().replace(".", ",") + " kg";
 };
 
 export const formatSize = (size?: number): string => {
   if (!size) {
-    return "";
+    return "--";
   }
   return (size / 10).toString().replace(".", ",") + " m";
 };
