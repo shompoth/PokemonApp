@@ -51,7 +51,6 @@ const Pokemon = () => {
   return (
     <RootView style={{}}>
       <View style={responsiveStyle} className="px-4 flex-1">
-        {/* Header */}
         <View className="flex-row items-center p-4">
           <TouchableOpacity
             onPress={() => router.back()}
@@ -139,7 +138,7 @@ const Pokemon = () => {
                     {bio}
                   </CustomText>
                 ) : (
-                  <View className="h-10 my-8 bg-black" /> // hauteur approximative basée sur la taille de police medium
+                  <View className="h-10 my-8" />
                 )}
               </View>
             </View>
