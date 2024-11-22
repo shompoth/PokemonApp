@@ -1,46 +1,51 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  PokemonDetail,
+  PokemonListResponse,
+  PokemonSpecies,
+} from "../types/pokemon";
 
 const endpoint = "https://pokeapi.co/api/v2";
 
-export const useFetchQuery = (
-  path: string,
-  params?: Record<string, string | number>
+type API = {
+  "/pokemon?limit=20": PokemonListResponse;
+  "/pokemon/[id]": PokemonDetail;
+  "/pokemon-species/[id]": PokemonSpecies;
+};
+
+type QueryPath = keyof API;
+type QueryParams = Record<string, string | number>;
+
+export const useFetchQuery = <T extends QueryPath>(
+  path: T,
+  params?: QueryParams
 ) => {
   const localUrl =
     endpoint +
-    Object.entries(params ?? {}).reduce(
+    Object.entries(params ?? {}).reduce<string>(
       (acc, [key, value]) => acc.replaceAll(`[${key}]`, String(value)),
       path
     );
 
   return useQuery({
     queryKey: [localUrl],
-    queryFn: () => {
-      return fetch(localUrl, {
-        headers: {
-          Accept: "application/json",
-        },
-      }).then((r) => r.json());
-    },
+    queryFn: () =>
+      fetch(localUrl, {
+        headers: { Accept: "application/json" },
+      }).then((r) => r.json() as Promise<API[T]>),
   });
 };
 
-export const useInfiniteFetchQuery = (path: string) => {
+export const useInfiniteFetchQuery = <T extends QueryPath>(path: T) => {
   return useInfiniteQuery({
     queryKey: [path],
     initialPageParam: endpoint + path,
-    queryFn: ({ pageParam }) => {
-      return fetch(pageParam, {
-        headers: {
-          Accept: "application/json",
-        },
-      }).then((r) => r.json());
-    },
+    queryFn: ({ pageParam }) =>
+      fetch(pageParam, {
+        headers: { Accept: "application/json" },
+      }).then((r) => r.json() as Promise<API[T]>),
     getNextPageParam: (lastPage) => {
-      if ("next" in lastPage) {
-        return lastPage.next;
-      }
-      return null;
+      return "next" in lastPage ? lastPage.next : null;
     },
   });
 };
