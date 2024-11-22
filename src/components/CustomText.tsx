@@ -12,15 +12,11 @@ export const CustomText = ({
   variant = "default",
 }: Props) => {
   const variants = {
-    small: "text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
-    medium:
-      "text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl",
-    default:
-      "text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
-    large:
-      "text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl",
-    xlarge:
-      "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl",
+    small: "text-xs md:text-sm lg:text-base xl:text-lg",
+    medium: "text-sm md:text-base lg:text-lg xl:text-xl",
+    default: "text-base md:text-lg lg:text-xl xl:text-2xl",
+    large: "text-lg md:text-xl lg:text-2xl xl:text-3xl",
+    xlarge: "text-xl md:text-2xl lg:text-3xl xl:text-4xl",
   };
 
   return (
