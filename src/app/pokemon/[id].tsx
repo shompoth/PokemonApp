@@ -24,11 +24,6 @@ const Pokemon = () => {
   });
   const mainType = pokemon?.types?.[0].type.name;
   const types = pokemon?.types ?? [];
-  console.log(
-    "species",
-    species?.flavor_text_entries.find(({ language }) => language.name === "en")
-      .flavor_text
-  );
 
   const bio = species?.flavor_text_entries
     ?.find(({ language }) => language.name === "en")
@@ -36,12 +31,10 @@ const Pokemon = () => {
     .replace(/\f/g, " ");
 
   return (
-    // <RootView style={{ backgroundColor: "orange" }}>
     <RootView style={{}}>
       <View style={{ position: "relative" }} className="px-4">
         <Image
           source={require("../../../assets/pokeball_big.png")}
-          // className="w-[50%] h-auto absolute right-8 top-8 bg-black"
           className="w-[50%] h-auto absolute right-8 top-8"
           resizeMode="contain"
         />
@@ -68,15 +61,19 @@ const Pokemon = () => {
             source={{
               uri: getPokemonArtwork(params.id),
             }}
-            className="w-3/5 aspect-square mx-auto"
+            className="w-1/2 aspect-square mx-auto"
             resizeMode="contain"
           />
           <View className="flex-row justify-center">
-            {types.map((type) => (
-              <PokemonType key={type.type.name} name={type.type.name} />
-            ))}
+            {!!types?.length ? (
+              types.map((type) => (
+                <PokemonType key={type.type.name} name={type.type.name} />
+              ))
+            ) : (
+              <View className="h-10 w-10 p-2 m-2" />
+            )}
           </View>
-          <CustomText className="mx-auto my-2">About</CustomText>
+          <CustomText className="mx-auto mt-2 font-semibold">About</CustomText>
           <View className="flex-row">
             <PokemonSpec
               title={formatWeight(pokemon?.weight)}
@@ -97,10 +94,12 @@ const Pokemon = () => {
               isLast
             />
           </View>
-          <CustomText className="text-center my-4 font-medium">
+          <CustomText variant="medium" className="text-center my-8 font-medium">
             {bio}
           </CustomText>
-          <CustomText className="mx-auto my-4">Base Stats</CustomText>
+          <CustomText className="mx-auto mb-2 font-semibold">
+            Base Stats
+          </CustomText>
           <View>
             {pokemon?.stats.map((stat) => (
               <PokemonStat

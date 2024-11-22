@@ -27,7 +27,7 @@ export const PokemonSpec = ({
         )}
         <CustomText>{title}</CustomText>
       </View>
-      <CustomText className="mt-2">{description}</CustomText>
+      <CustomText className="font-medium">{description}</CustomText>
     </View>
   );
 };

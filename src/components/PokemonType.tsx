@@ -7,8 +7,10 @@ type Props = {
 
 export const PokemonType = ({ name }: Props) => {
   return (
-    <View className="p-2 rounded-xl bg-white my-2 mx-2">
-      <CustomText className="text-gray-500 capitalize">{name}</CustomText>
+    <View className="p-2 m-2 rounded-xl bg-white">
+      <CustomText className="text-gray-500 capitalize font-semibold">
+        {name}
+      </CustomText>
     </View>
   );
 };

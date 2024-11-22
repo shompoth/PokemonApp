@@ -3,7 +3,7 @@ import { Text } from "react-native";
 type Props = {
   children: React.ReactNode;
   className?: string;
-  variant?: "small" | "default" | "large" | "xlarge";
+  variant?: "small" | "medium" | "default" | "large" | "xlarge";
 };
 
 export const CustomText = ({
@@ -13,6 +13,8 @@ export const CustomText = ({
 }: Props) => {
   const variants = {
     small: "text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
+    medium:
+      "text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl",
     default:
       "text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl",
     large:
