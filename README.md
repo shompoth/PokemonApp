@@ -14,7 +14,7 @@ Animated stats bars
 
 ## Prerequisites
 
-Node.js >=14
+Node.js
 npm
 Expo
 iOS/Android simulator (optional)
@@ -30,13 +30,13 @@ git clone https://github.com/shompoth/PokemonApp.git
 - Install dependencies:
 
 ```sh
-  npm install
+npm install
 ```
 
 - Start the development server:
 
 ```sh
-    npx expo start
+npx expo start
 ```
 
 ## Running the App
