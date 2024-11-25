@@ -1,12 +1,12 @@
 import { ScrollView, useWindowDimensions, View, ViewStyle } from "react-native";
-import { RootView } from "../../components/common/RootView";
+import { RootView } from "@/components/common/RootView";
 import { useLocalSearchParams } from "expo-router";
-import { useFetchQuery } from "../../hooks/useFetchQuery";
-import { basePokemonStats } from "../../constants/pokemon";
-import { Header } from "../../components/pokemon-details/Header";
-import { ImageSection } from "../../components/pokemon-details/imageSection";
-import { AboutSection } from "../../components/pokemon-details/aboutSection";
-import { StatsSection } from "../../components/pokemon-details/statsSection";
+import { useFetchQuery } from "@/hooks/useFetchQuery";
+import { basePokemonStats } from "@/constants/pokemon";
+import { Header } from "@/components/pokemon-details/Header";
+import { ImageSection } from "@/components/pokemon-details/imageSection";
+import { AboutSection } from "@/components/pokemon-details/aboutSection";
+import { StatsSection } from "@/components/pokemon-details/statsSection";
 
 const Pokemon = () => {
   const params = useLocalSearchParams() as { id: string };

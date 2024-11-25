@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { CustomText } from "../../common/CustomText";
+import { CustomText } from "@/components/common/CustomText";
 
 type Props = {
   name: string;

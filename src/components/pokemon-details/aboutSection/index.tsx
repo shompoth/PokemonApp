@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import { CustomText } from "../../common/CustomText";
+import { CustomText } from "@/components/common/CustomText";
 import { PokemonSpec } from "./PokemonSpec";
-import { formatSize, formatWeight } from "../../../functions/pokemon";
-import { PokemonDetail } from "../../../types/pokemon";
+import { formatSize, formatWeight } from "@/functions/pokemon";
+import { PokemonDetail } from "@/types/pokemon";
 
 type Props = {
   pokemon: PokemonDetail | undefined;

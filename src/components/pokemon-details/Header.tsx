@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity, View } from "react-native";
-import { CustomText } from "../common/CustomText";
-import { getPokemonIdDisplay } from "../../functions/pokemon";
+import { CustomText } from "@/components/common/CustomText";
+import { getPokemonIdDisplay } from "@/functions/pokemon";
 import { useRouter } from "expo-router";
 
 type Props = {

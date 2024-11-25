@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { View, useWindowDimensions, ViewStyle } from "react-native";
-import { SearchBar } from "../components/pokemon-search/SearchBar";
-import { useInfiniteFetchQuery } from "../hooks/useFetchQuery";
-import { getPokemonId } from "../functions/pokemon";
-import { RootView } from "../components/common/RootView";
-import { PokemonList } from "../components/pokemon-search/PokemonList";
-import { Header } from "../components/pokemon-search/Header";
+import { SearchBar } from "@/components/pokemon-search/SearchBar";
+import { useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
+import { getPokemonId } from "@/functions/pokemon";
+import { RootView } from "@/components/common/RootView";
+import { PokemonList } from "@/components/pokemon-search/PokemonList";
+import { Header } from "@/components/pokemon-search/Header";
 
 export default function Index() {
   const [search, setSearch] = useState("");

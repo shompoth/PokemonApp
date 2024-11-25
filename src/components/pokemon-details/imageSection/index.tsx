@@ -1,6 +1,6 @@
 import { Image, View } from "react-native";
-import { getPokemonArtwork } from "../../../functions/pokemon";
-import { TypeDetail } from "../../../types/pokemon";
+import { getPokemonArtwork } from "@/functions/pokemon";
+import { TypeDetail } from "@/types/pokemon";
 import { PokemonType } from "./PokemonType";
 
 type Props = {
