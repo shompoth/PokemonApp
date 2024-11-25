@@ -33,7 +33,7 @@ export default function Index() {
     ? pokemons.filter(
         (p) =>
           p.name.toLowerCase().includes(search.toLowerCase()) ||
-          p.id.toString() === search
+          p.id.toString().includes(search)
       )
     : pokemons;
 
