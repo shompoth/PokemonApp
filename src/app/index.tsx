@@ -6,6 +6,8 @@ import {
   Image,
   useWindowDimensions,
   ViewStyle,
+  Text,
+  Button,
 } from "react-native";
 import { PokemonCard } from "../components/PokemonCard";
 import { SearchBar } from "../components/SearchBar";
@@ -16,8 +18,15 @@ import { CustomText } from "../components/CustomText";
 
 export default function Index() {
   const [search, setSearch] = useState("");
-  const { data, isFetching, fetchNextPage } =
-    useInfiniteFetchQuery("/pokemon?limit=20");
+  const {
+    data,
+    isFetching,
+    isLoading,
+    error,
+    isError,
+    refetch,
+    fetchNextPage,
+  } = useInfiniteFetchQuery("/pokemon?limit=20");
 
   const { width } = useWindowDimensions();
   const numColumns = width > 768 ? 3 : 2;
@@ -42,6 +51,26 @@ export default function Index() {
     maxWidth: 1200,
     marginHorizontal: width > 768 ? "auto" : undefined,
   };
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" />
+        <Text className="mt-4">Loading Pokémon...</Text>
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-red-500 mb-4">
+          {error?.message || "An error has occurred"}
+        </Text>
+        <Button onPress={() => refetch()} title="Retry" />
+      </View>
+    );
+  }
 
   return (
     <RootView>
