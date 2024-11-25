@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { View, Image, useWindowDimensions, ViewStyle } from "react-native";
+import { View, useWindowDimensions, ViewStyle } from "react-native";
 import { SearchBar } from "../components/pokemon-search/SearchBar";
 import { useInfiniteFetchQuery } from "../hooks/useFetchQuery";
 import { getPokemonId } from "../functions/pokemon";
 import { RootView } from "../components/common/RootView";
-import { CustomText } from "../components/common/CustomText";
 import { PokemonList } from "../components/pokemon-search/PokemonList";
+import { Header } from "../components/pokemon-search/Header";
 
 export default function Index() {
   const [search, setSearch] = useState("");
@@ -46,17 +46,7 @@ export default function Index() {
   return (
     <RootView>
       <View style={responsiveStyle} className="flex-1 p-4">
-        <View className="flex-row mb-2 px-2 items-center">
-          <Image
-            source={require("../../assets/pokemon-logo.png")}
-            style={{ width: width * 0.05, height: width * 0.05 }}
-            className="mr-2"
-            resizeMode="contain"
-          />
-          <CustomText variant="xlarge" className="font-bold">
-            Pokédex
-          </CustomText>
-        </View>
+        <Header width={width} />
         <SearchBar
           searchText={search}
           isEditable={!isFetching && !isError}
