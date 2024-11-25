@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { RootView } from "../../components/RootView";
+import { RootView } from "../../components/common/RootView";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -16,10 +16,10 @@ import {
   getPokemonIdDisplay,
 } from "../../functions/pokemon";
 import { useFetchQuery } from "../../hooks/useFetchQuery";
-import { PokemonType } from "../../components/PokemonType";
-import { PokemonSpec } from "../../components/PokemonSpec";
-import { PokemonStat } from "../../components/PokemonStat";
-import { CustomText } from "../../components/CustomText";
+import { PokemonType } from "../../components/pokemon-details/PokemonType";
+import { PokemonSpec } from "../../components/pokemon-details/PokemonSpec";
+import { PokemonStat } from "../../components/pokemon-details/PokemonStat";
+import { CustomText } from "../../components/common/CustomText";
 import { basePokemonStats } from "../../constants/pokemon";
 
 const Pokemon = () => {

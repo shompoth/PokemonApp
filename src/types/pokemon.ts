@@ -3,6 +3,11 @@ interface PokemonBase {
   url: string;
 }
 
+export interface PokemonBaseId {
+  id: number;
+  name: string;
+}
+
 export interface PokemonListResponse {
   count: number;
   next: string | null;

@@ -1,7 +1,7 @@
 import { ViewProps } from "react-native";
 import { View } from "react-native";
-import { statShortName } from "../functions/pokemon";
-import { CustomText } from "./CustomText";
+import { statShortName } from "../../functions/pokemon";
+import { CustomText } from "../common/CustomText";
 import { Animated } from "react-native";
 import { useEffect, useRef } from "react";
 

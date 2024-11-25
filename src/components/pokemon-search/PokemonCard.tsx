@@ -5,8 +5,11 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
-import { getPokemonArtwork, getPokemonIdDisplay } from "../functions/pokemon";
-import { CustomText } from "./CustomText";
+import {
+  getPokemonArtwork,
+  getPokemonIdDisplay,
+} from "../../functions/pokemon";
+import { CustomText } from "../common/CustomText";
 
 type Props = {
   name: string;

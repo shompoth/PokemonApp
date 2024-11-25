@@ -1,20 +1,11 @@
 import { useState } from "react";
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-  Image,
-  useWindowDimensions,
-  ViewStyle,
-  Text,
-  Button,
-} from "react-native";
-import { PokemonCard } from "../components/PokemonCard";
-import { SearchBar } from "../components/SearchBar";
+import { View, Image, useWindowDimensions, ViewStyle } from "react-native";
+import { SearchBar } from "../components/pokemon-search/SearchBar";
 import { useInfiniteFetchQuery } from "../hooks/useFetchQuery";
 import { getPokemonId } from "../functions/pokemon";
-import { RootView } from "../components/RootView";
-import { CustomText } from "../components/CustomText";
+import { RootView } from "../components/common/RootView";
+import { CustomText } from "../components/common/CustomText";
+import { PokemonList } from "../components/pokemon-search/PokemonList";
 
 export default function Index() {
   const [search, setSearch] = useState("");
@@ -52,26 +43,6 @@ export default function Index() {
     marginHorizontal: width > 768 ? "auto" : undefined,
   };
 
-  if (isLoading) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" />
-        <Text className="mt-4">Loading Pokémon...</Text>
-      </View>
-    );
-  }
-
-  if (isError) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-red-500 mb-4">
-          {error?.message || "An error has occurred"}
-        </Text>
-        <Button onPress={() => refetch()} title="Retry" />
-      </View>
-    );
-  }
-
   return (
     <RootView>
       <View style={responsiveStyle} className="flex-1 p-4">
@@ -86,27 +57,21 @@ export default function Index() {
             Pokédex
           </CustomText>
         </View>
-        <SearchBar searchText={search} onChange={setSearch} />
-        <FlatList
-          style={{ flex: 1 }}
-          data={filteredPokemons}
-          key={numColumns}
+        <SearchBar
+          searchText={search}
+          isEditable={!isFetching && !isError}
+          onChange={setSearch}
+        />
+        <PokemonList
+          filteredPokemons={filteredPokemons}
           numColumns={numColumns}
-          columnWrapperStyle={{
-            justifyContent: "center",
-          }}
-          contentContainerClassName="px-2"
-          renderItem={({ item }) => (
-            <PokemonCard name={item.name} id={item.id} />
-          )}
-          ListFooterComponent={
-            <>
-              {isFetching && <ActivityIndicator />}
-              <View className="pb-2" />
-            </>
-          }
-          onEndReached={search ? null : () => fetchNextPage()}
-          keyExtractor={(item) => item.id.toString()}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          error={error}
+          search={search}
+          refetch={refetch}
+          fetchNextPage={fetchNextPage}
         />
       </View>
     </RootView>
