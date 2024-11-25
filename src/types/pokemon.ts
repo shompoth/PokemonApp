@@ -34,12 +34,12 @@ type MoveDetail = {
   move: NamedResource;
 };
 
-type StatDetail = {
+export type StatDetail = {
   base_stat: number;
   stat: NamedResource;
 };
 
-type TypeDetail = {
+export type TypeDetail = {
   type: NamedResource;
 };
 
