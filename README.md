@@ -11,6 +11,7 @@ A React Native application built with Expo that displays Pokémon information us
 - View detailed Pokémon stats and information
 - Responsive design (mobile and web support)
 - Animated stats bars
+- You will find new improvements in a new PR [feat-improvements](https://github.com/shompoth/PokemonApp/pull/1)
 
 ## Prerequisites
 
