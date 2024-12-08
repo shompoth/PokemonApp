@@ -1,23 +1,23 @@
 import { useState } from "react";
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-  Image,
-  useWindowDimensions,
-  ViewStyle,
-} from "react-native";
-import { PokemonCard } from "../components/PokemonCard";
-import { SearchBar } from "../components/SearchBar";
-import { useInfiniteFetchQuery } from "../hooks/useFetchQuery";
-import { getPokemonId } from "../functions/pokemon";
-import { RootView } from "../components/RootView";
-import { CustomText } from "../components/CustomText";
+import { View, useWindowDimensions, ViewStyle } from "react-native";
+import { SearchBar } from "@/components/pokemon-search/SearchBar";
+import { useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
+import { getPokemonId } from "@/functions/pokemon";
+import { RootView } from "@/components/common/RootView";
+import { PokemonList } from "@/components/pokemon-search/PokemonList";
+import { Header } from "@/components/pokemon-search/Header";
 
 export default function Index() {
   const [search, setSearch] = useState("");
-  const { data, isFetching, fetchNextPage } =
-    useInfiniteFetchQuery("/pokemon?limit=20");
+  const {
+    data,
+    isFetching,
+    isLoading,
+    error,
+    isError,
+    refetch,
+    fetchNextPage,
+  } = useInfiniteFetchQuery("/pokemon?limit=20");
 
   const { width } = useWindowDimensions();
   const numColumns = width > 768 ? 3 : 2;
@@ -33,7 +33,7 @@ export default function Index() {
     ? pokemons.filter(
         (p) =>
           p.name.toLowerCase().includes(search.toLowerCase()) ||
-          p.id.toString() === search
+          p.id.toString().includes(search)
       )
     : pokemons;
 
@@ -46,38 +46,22 @@ export default function Index() {
   return (
     <RootView>
       <View style={responsiveStyle} className="flex-1 p-4">
-        <View className="flex-row mb-2 px-2 items-center">
-          <Image
-            source={require("../../assets/pokemon-logo.png")}
-            style={{ width: width * 0.05, height: width * 0.05 }}
-            className="mr-2"
-            resizeMode="contain"
-          />
-          <CustomText variant="xlarge" className="font-bold">
-            Pokédex
-          </CustomText>
-        </View>
-        <SearchBar searchText={search} onChange={setSearch} />
-        <FlatList
-          style={{ flex: 1 }}
-          data={filteredPokemons}
-          key={numColumns}
+        <Header width={width} />
+        <SearchBar
+          searchText={search}
+          isEditable={!isFetching && !isError}
+          onChange={setSearch}
+        />
+        <PokemonList
+          filteredPokemons={filteredPokemons}
           numColumns={numColumns}
-          columnWrapperStyle={{
-            justifyContent: "center",
-          }}
-          contentContainerClassName="px-2"
-          renderItem={({ item }) => (
-            <PokemonCard name={item.name} id={item.id} />
-          )}
-          ListFooterComponent={
-            <>
-              {isFetching && <ActivityIndicator />}
-              <View className="pb-2" />
-            </>
-          }
-          onEndReached={search ? null : () => fetchNextPage()}
-          keyExtractor={(item) => item.id.toString()}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          error={error}
+          search={search}
+          refetch={refetch}
+          fetchNextPage={fetchNextPage}
         />
       </View>
     </RootView>

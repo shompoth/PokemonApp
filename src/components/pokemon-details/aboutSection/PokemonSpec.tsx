@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { CustomText } from "./CustomText";
+import { CustomText } from "@/components/common/CustomText";
 
 type Props = {
   title?: string;

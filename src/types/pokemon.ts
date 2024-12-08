@@ -3,6 +3,11 @@ interface PokemonBase {
   url: string;
 }
 
+export interface PokemonBaseId {
+  id: number;
+  name: string;
+}
+
 export interface PokemonListResponse {
   count: number;
   next: string | null;
@@ -29,12 +34,12 @@ type MoveDetail = {
   move: NamedResource;
 };
 
-type StatDetail = {
+export type StatDetail = {
   base_stat: number;
   stat: NamedResource;
 };
 
-type TypeDetail = {
+export type TypeDetail = {
   type: NamedResource;
 };
 
